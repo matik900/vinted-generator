@@ -79,6 +79,9 @@
       <option value="3">Brak odpowiedzi ⏳</option>
       <option value="4">Dziękuję za zakup 🙌</option>
       <option value="5">Odebrano paczkę – prośba o opinię ⭐</option>
+      <option value="6">Prośba o wymiary 📏</option>
+      <option value="7">Prośba o rezerwację 📌</option>
+      <option value="8">Negocjacja ceny 💸</option>
     </select>
 
     <label for="gender">Płeć odbiorcy:</label>
@@ -90,6 +93,10 @@
 
     <label for="discount">Rabat (%):</label>
     <input type="text" id="discount" placeholder="Np. 10%">
+
+    <label for="price">Nowa cena (zł):</label>
+    <input type="text" id="price" placeholder="Np. 45zł">
+
 
     <label for="shipping">Forma wysyłki:</label>
     <select id="shipping">
@@ -137,7 +144,23 @@
         "Mam nadzieję, że ci się podoba przedmiot i chce ci przypomnieć, że możesz wykorzystać następnym razem kodzik, który jest w paczce.\nPozdrawiam i proszę o opinię (na profilu) i feedback (tutaj) – np. co mogę jeszcze polepszyć.",
         "Dziękuję za zakup raz jeszcze! Mam nadzieję, że wszystko doszło w porządku 🙏\nZachęcam do zostawienia opinii oraz napisania, co mogę poprawić lub dodać 💬",
         "Cześć! Mam nadzieję, że wszystko gra z przesyłką 🎁\nJeśli masz chwilę – proszę o feedback i zostawienie opinii na profilu. Będę wdzięczny za sugestie 💡"
+      ],
+      '6': [
+        "Hej! Już podaję wymiary:\n📏 [tutaj wpisz szczegóły]\nJeśli coś jeszcze chcesz wiedzieć – pisz śmiało! 😊",
+        "Cześć! Dzięki za wiadomość – oto wymiary:\n📏 [długość, szerokość itp.]\nW razie pytań – jestem tu! 💬",
+        "Jasne, zaraz podaję:\n📏 [wstaw dane] 📐\nJeśli chcesz więcej zdjęć – daj znać!"
+      ],
+      '7': [
+        "Oczywiście – rezerwuję dla Ciebie ✅\nDaj znać, gdy będziesz gotowy/a do zakupu!",
+        "Zarezerwowane na 24h ⏳\nJeśli się rozmyślisz – nie ma sprawy 🙂",
+        "Gotowe – przedmiot zarezerwowany! 📌\nCzekam na info, kiedy kupujesz 💬"
+      ],
+      '8': [
+        "Hej! W ramach dobrej woli mogę zejść do {price} 😊\nDaj znać, czy to Ci pasuje!",
+        "Cześć – zrobię dla Ciebie wyjątek i zaproponuję {price} 💸",
+        "Moja minimalna propozycja to {price} – co o tym myślisz? 🤝"
       ]
+
     };
 
     function genderAdjust(message, gender) {
@@ -151,12 +174,14 @@
       const situation = document.getElementById('situation').value;
       const gender = document.getElementById('gender').value;
       const discount = document.getElementById('discount').value || '10%';
+      const price = document.getElementById('price').value || 'np. 45zł';
       const shipping = document.getElementById('shipping').value || 'przez InPost dzisiaj';
 
       const options = messages[situation];
       const baseMessage = options[Math.floor(Math.random() * options.length)]
         .replace(/{discount}/g, discount)
-        .replace(/{shipping}/g, shipping);
+        .replace(/{shipping}/g, shipping)
+        .replace(/{price}/g, price);
 
       const finalMessage = genderAdjust(baseMessage, gender);
 
@@ -184,5 +209,4 @@
   </script>
 </body>
 </html>
-
 
